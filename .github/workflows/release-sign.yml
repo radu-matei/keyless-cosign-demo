@@ -9,7 +9,7 @@ jobs:
     permissions:
       id-token: write 
 
-    name: Install Cosign and test presence in path
+    name: Sign artifact and publish signature and certificate
     steps:
       - uses: actions/checkout@master
         with:
@@ -26,7 +26,7 @@ jobs:
           echo 'hello world' > out/artifact
           
       - name: Sign the artifact with GitHub OIDC token
-        run: cosign sign-blob --output-certificate out/crt.pem --output-signature out/artifact.sig out/artifact
+        run: cosign sign-blob --output-certificate out/crt.pem --output-signature out/artifact.sig out/artifact --yes
 
       - name: Upload assets as GitHub artifact
         uses: actions/upload-artifact@v3
